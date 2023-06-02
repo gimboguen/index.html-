@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>3D Web Page</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.0/build/three.min.js"></script>
+    <script>
+      // Three.js를 활용하여 3D 공간 생성
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // 큐브 생성 및 추가
+      function createCube() {
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.position.set(Math.random() * 10 - 5, Math.random() * 10 - 5, Math.random() * 10 - 5);
+        scene.add(cube);
+      }
+
+      // 렌더링 반복
+      function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+      }
+
+      // 초기화
+      function init() {
+        camera.position.z = 5;
+        for (let i = 0; i < 10; i++) {
+          createCube();
+        }
+        animate();
+      }
+
+      // 초기화 함수 호출
+      init();
+    </script>
+  </body>
+</html>
